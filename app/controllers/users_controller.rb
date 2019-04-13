@@ -23,7 +23,7 @@ class UsersController < ApplicationController
   end
 
   def profile_params
-    params.fetch(:profile).permit(:currency)
+    params.fetch(:user).fetch(:profile).permit(:currency)
   end
 
 end
