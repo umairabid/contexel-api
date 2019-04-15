@@ -40,6 +40,8 @@ gem 'active_model_serializers', '0.10.9'
 
 gem 'rack-cors', '1.0.3'
 
+gem 'cancancan', '3.0.0'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
