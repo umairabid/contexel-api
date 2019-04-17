@@ -1,8 +1,4 @@
-class SessionsService
-
-  def initialize
-    @crypto_service = CryptoService.new
-  end
+class SessionService
 
   def login(params)
     user = User.find_by_email(params[:email])

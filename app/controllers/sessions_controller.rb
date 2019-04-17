@@ -5,14 +5,14 @@ class SessionsController < ApplicationController
   def create
     user = @service.login params
     user ?
-        render(json: {access_token: user.access_token}) :
+        render(json: user, adapter: nil) :
         render(json: {error: "Invalid password"}, status: 400)
   end
 
   private
 
   def set_service
-    @service = SessionsService.new
+    @service = SessionService.new
   end
 
 end

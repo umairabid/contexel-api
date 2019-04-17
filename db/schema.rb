@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(version: 2019_04_14_044923) do
     t.string "company"
     t.integer "currency", default: 1, null: false
     t.bigint "user_id", null: false
-    t.index ["user_id"], name: "index_managers_on_user_id"
+    t.index ["user_id"], name: "index_managers_on_user_id", unique: true
   end
 
   create_table "users", force: :cascade do |t|
@@ -54,8 +54,11 @@ ActiveRecord::Schema.define(version: 2019_04_14_044923) do
 
   create_table "writers", force: :cascade do |t|
     t.integer "rate_per_word", default: 0, null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_writers_on_user_id", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "managers", "users"
+  add_foreign_key "writers", "users"
 end
