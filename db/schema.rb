@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_14_044923) do
+ActiveRecord::Schema.define(version: 2019_04_20_082440) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,7 +40,27 @@ ActiveRecord::Schema.define(version: 2019_04_14_044923) do
     t.string "company"
     t.integer "currency", default: 1, null: false
     t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_managers_on_user_id", unique: true
+  end
+
+  create_table "team_members", force: :cascade do |t|
+    t.bigint "team_id", null: false
+    t.bigint "writer_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["team_id"], name: "index_team_members_on_team_id"
+    t.index ["writer_id"], name: "index_team_members_on_writer_id"
+  end
+
+  create_table "teams", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "description"
+    t.bigint "manager_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["manager_id"], name: "index_teams_on_manager_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -49,16 +69,26 @@ ActiveRecord::Schema.define(version: 2019_04_14_044923) do
     t.string "password_digest", null: false
     t.string "access_token", null: false
     t.integer "role", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
   create_table "writers", force: :cascade do |t|
     t.integer "rate_per_word", default: 0, null: false
     t.bigint "user_id", null: false
+    t.bigint "manager_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["manager_id"], name: "index_writers_on_manager_id"
     t.index ["user_id"], name: "index_writers_on_user_id", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "managers", "users"
+  add_foreign_key "team_members", "teams"
+  add_foreign_key "team_members", "writers"
+  add_foreign_key "teams", "managers"
+  add_foreign_key "writers", "managers"
   add_foreign_key "writers", "users"
 end

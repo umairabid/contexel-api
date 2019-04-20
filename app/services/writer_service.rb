@@ -16,6 +16,28 @@ class WriterService
     profile
   end
 
+  def update_writer(writer, params)
+    user = writer.user
+    user.name = params[:name]
+    user.email = params[:email]
+    writer.rate_per_word = params[:rate_per_word]
+    User.transaction do
+      user.save!
+      writer.save!
+    end
+    writer
+  end
+
+  def remove(writer)
+    User.transaction do
+      user = writer.user
+      User.transaction do
+        writer.destroy
+        user.destroy
+      end
+    end
+  end
+
   def prepare_writer(params)
     writer = Writer.new
     writer.rate_per_word = params[:rate_per_word]
