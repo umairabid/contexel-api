@@ -4,4 +4,5 @@ Rails.application.routes.draw do
   resources :sessions, only: [:create]
   resources :writers
   resources :managers
+  resources :teams
 end

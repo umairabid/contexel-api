@@ -41,6 +41,7 @@ class WriterService
   def prepare_writer(params)
     writer = Writer.new
     writer.rate_per_word = params[:rate_per_word]
+    writer.manager_id = params[:manager_id]
     writer
   end
 

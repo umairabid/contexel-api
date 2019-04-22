@@ -10,6 +10,7 @@ class WritersController < ApplicationController
   end
 
   def create
+    params[:writer][:manager_id] = current_user.profile.id
     writer = @service.create_writer params[:writer]
     render json: writer
   end
