@@ -5,4 +5,5 @@ Rails.application.routes.draw do
   resources :writers
   resources :managers
   resources :teams
+  resources :tasks
 end

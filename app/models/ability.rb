@@ -7,6 +7,7 @@ class Ability
     if user.present? and user.role == 'manager'
       can :manage, Writer
       can :manage, Team
+      can :manage, Task
     end
   end
 end

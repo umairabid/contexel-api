@@ -1,5 +1,5 @@
 class WriterSerializer < ActiveModel::Serializer
-  attributes :id, :name, :email, :role, :rate_per_word, :avatar
+  attributes :id, :name, :email, :role, :rate_per_word, :avatar, :user_id
 
   def name
     self.object.user.name
@@ -16,6 +16,10 @@ class WriterSerializer < ActiveModel::Serializer
   def avatar
     self.object.user.avatar.attached? &&
         Rails.application.routes.url_helpers.rails_blob_path(self.object.user.avatar)
+  end
+
+  def user_id
+    self.object.user.id
   end
 
 end
