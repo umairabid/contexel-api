@@ -7,7 +7,7 @@ class TasksController < ApplicationController
   before_action :set_service
 
   def index
-    render json: Task.all
+    render json: @service.get_current_user_tasks(current_user)
   end
 
   def create

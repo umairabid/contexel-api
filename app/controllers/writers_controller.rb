@@ -6,7 +6,7 @@ class WritersController < ApplicationController
   before_action :set_writer, only: [:update, :destroy]
 
   def index
-    render json: Writer.all
+    render json: @service.get_user_writers(current_user)
   end
 
   def create

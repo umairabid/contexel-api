@@ -45,4 +45,15 @@ class WriterService
     writer
   end
 
+  def get_user_writers(user)
+    case user.role
+    when 'manager'
+      Writer.where(manager_id: user.profile.id)
+    when 'writer'
+      Writer.where(id: user.profile.id)
+    else
+      []
+    end
+  end
+
 end

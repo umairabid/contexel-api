@@ -44,4 +44,15 @@ class TaskService
     keyword
   end
 
+  def get_current_user_tasks(user)
+    case user.role
+    when 'manager'
+      Task.where(manager_id: user.profile.id)
+    when 'writer'
+      Task.where(user_id: user.id)
+    else
+      []
+    end
+  end
+
 end

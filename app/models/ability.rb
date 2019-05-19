@@ -9,5 +9,10 @@ class Ability
       can :manage, Team
       can :manage, Task
     end
+
+    if user.present? and user.role == 'writer'
+      can :read, Task
+      can :read, Writer
+    end
   end
 end
