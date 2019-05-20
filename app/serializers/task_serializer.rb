@@ -10,6 +10,7 @@ class TaskSerializer < ActiveModel::Serializer
              :due_date,
              :max_plagiarism,
              :max_mistakes,
+             :min_word,
              :payment_type,
              :payment_value,
              :user_id

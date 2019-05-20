@@ -25,6 +25,7 @@ class TaskService
     task.due_date = params[:due_date]
     task.max_plagiarism = params[:max_plagiarism]
     task.max_mistakes = params[:max_mistakes]
+    task.min_word = params[:min_word]
     task.payment_type = params[:payment_type]
     task.payment_value = params[:payment_value]
     task.user_id = params[:user_id]

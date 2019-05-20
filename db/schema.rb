@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_25_164049) do
+ActiveRecord::Schema.define(version: 2019_05_19_132324) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,12 +64,24 @@ ActiveRecord::Schema.define(version: 2019_04_25_164049) do
     t.index ["user_id"], name: "index_task_statuses_on_user_id"
   end
 
+  create_table "task_submissions", force: :cascade do |t|
+    t.text "submission"
+    t.boolean "is_submitted", default: false, null: false
+    t.bigint "task_id", null: false
+    t.bigint "writer_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["task_id"], name: "index_task_submissions_on_task_id"
+    t.index ["writer_id"], name: "index_task_submissions_on_writer_id"
+  end
+
   create_table "tasks", force: :cascade do |t|
     t.string "title", null: false
     t.text "description"
     t.datetime "due_date", null: false
     t.integer "max_plagiarism"
     t.integer "max_mistakes"
+    t.integer "min_word", default: 0, null: false
     t.integer "payment_type", null: false
     t.integer "payment_value", null: false
     t.bigint "user_id", null: false
@@ -124,6 +136,8 @@ ActiveRecord::Schema.define(version: 2019_04_25_164049) do
   add_foreign_key "task_keywords", "tasks"
   add_foreign_key "task_statuses", "tasks"
   add_foreign_key "task_statuses", "users"
+  add_foreign_key "task_submissions", "tasks"
+  add_foreign_key "task_submissions", "writers"
   add_foreign_key "tasks", "managers"
   add_foreign_key "tasks", "users"
   add_foreign_key "team_members", "teams"
