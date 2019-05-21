@@ -5,5 +5,7 @@ Rails.application.routes.draw do
   resources :writers
   resources :managers
   resources :teams
-  resources :tasks
+  resources :tasks do
+    resources :task_submissions, path: 'submissions'
+  end
 end
