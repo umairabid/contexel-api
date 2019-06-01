@@ -1,0 +1,98 @@
+{
+  "isQueriesFinished": "false",
+  "totalQueries": 7,
+  "plagPercent": 57,
+  "uniquePercent": 43,
+  "excludeURL": null,
+  "details": [
+    {
+      "query": "t all starts with the first blog post",
+      "version": 3,
+      "unique": "true",
+      "s_name": "786289105365fa3d9e109afeee361b0402db35db91305650205"
+    },
+    {
+      "query": "I know\u2026 I\u2019ve been through that stage",
+      "version": 3,
+      "unique": "true",
+      "s_name": "1212010271cc183f56cd0dbd8ff5496ede5eccd672593243643"
+    },
+    {
+      "query": "You\u2019ve got mixed feelings: A bit of euphoria: You picture yourself as a successful blogger and you believe that blogging is everything you need",
+      "version": 3,
+      "unique": "false",
+      "s_name": "1336370218090097b9d04b2b5a705ef32db82c9b7f271532802"
+    },
+    {
+      "query": "But as soon as you start writing your first blog post your feelings change",
+      "version": 3,
+      "unique": "false",
+      "s_name": "1484420098a2be577414a2a8e87848c7617a96710b467806567"
+    },
+    {
+      "query": "Fear: You feel stuck and probably a bit depressed",
+      "version": 3,
+      "unique": "false",
+      "s_name": "103500608524658ccbc15afd88c0684c76f1ef342a1149186459"
+    },
+    {
+      "query": "I decided to write this blog post specifically for you",
+      "version": 3,
+      "unique": "false",
+      "s_name": "43002751400b854ac61e11e85192f59a6216953cb53807258"
+    },
+    {
+      "query": "To help you find your way and do only the things you need to do in order to achieve success.",
+      "version": 3,
+      "unique": "true",
+      "s_name": "716563505274eab4386e5c89dcc74ce336068bce2186623792"
+    }
+  ],
+  "sources": [
+    {
+      "link": "https://whateveruwant143.wordpress.com/2017/12/16/first-blog-post/",
+      "count": 7,
+      "percent": 100
+    },
+    {
+      "link": "https://whateveruwant143.wordpress.com/",
+      "count": 7,
+      "percent": 100
+    },
+    {
+      "link": "http://iwannabeablogger.com/first-blog-post/",
+      "count": 7,
+      "percent": 100
+    },
+    {
+      "link": "http://iwannabeablogger.com/blog/",
+      "count": 7,
+      "percent": 100
+    },
+    {
+      "link": "https://brightodu.wordpress.com/",
+      "count": 5,
+      "percent": 71
+    },
+    {
+      "link": "http://iwannabeablogger.com/",
+      "count": 5,
+      "percent": 71
+    },
+    {
+      "link": "https://www.quora.com/What-was-the-post-or-comment-that-gave-you-your-first-gold",
+      "count": 5,
+      "percent": 71
+    },
+    {
+      "link": "https://mumbailoversblog.my-free.website/about",
+      "count": 5,
+      "percent": 71
+    },
+    {
+      "link": "https://trstnkllydc.wordpress.com/",
+      "count": 5,
+      "percent": 71
+    }
+  ]
+}

@@ -12,5 +12,6 @@ class Task < ApplicationRecord
   belongs_to :user #assignee
   has_many :task_statuses
   has_many :task_keywords
+  has_many :task_submissions
 end
 

@@ -56,4 +56,13 @@ class TaskService
     end
   end
 
+  def save_submission(params, writer)
+    submission = params[:id] ? TaskSubmission.find(params[:id]) : TaskSubmission.new
+    submission.submission = params[:submission][:submission]
+    submission.task_id = params[:task_id]
+    submission.writer_id = writer.id
+    submission.save!
+    submission
+  end
+
 end

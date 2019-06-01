@@ -8,4 +8,7 @@ Rails.application.routes.draw do
   resources :tasks do
     resources :task_submissions, path: 'submissions'
   end
+
+  post 'stats', to: 'stats#index'
+  post '/checkPlag', :to => redirect('/plag-test.json')
 end
