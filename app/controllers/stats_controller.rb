@@ -14,11 +14,9 @@ class StatsController < ApplicationController
     }).body
 =end
     plagarism = JSON.parse File.read(Rails.root.join('public/plag-test.json'))
-    count = htmlStrippedContent.split(" ").size
     render json: {
         mistakes: Hash.from_xml(mistakes.body),
-        plagarism: plagarism,
-        count: count
+        plagarism: plagarism
     }
   end
 

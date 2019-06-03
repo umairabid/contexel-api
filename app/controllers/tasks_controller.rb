@@ -15,6 +15,11 @@ class TasksController < ApplicationController
     render json: task
   end
 
+  def update
+    task = @service.update_task params[:task], current_user
+    render json: task
+  end
+
   def show
     render json: @task
   end

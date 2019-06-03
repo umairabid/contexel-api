@@ -6,15 +6,7 @@ class TaskService
     populate_task_from_params task, params
     task_status = prepare_new_status params[:current_status], current_user
     task_keywords =  params[:keywords].map(&method(:create_or_update_keyword))
-    Task.transaction do
-      task.save!
-      task_status.task = task
-      task_status.save!
-      task_keywords.each do |kw|
-        kw.task = task
-        kw.save!
-      end
-    end
+    save_task task, task_status, task_keywords
     task
   end
 
@@ -38,8 +30,8 @@ class TaskService
     task_status
   end
 
-  def create_or_update_keyword(k)
-    keyword = k[:id].nil? ? TaskKeyword.new : TaskKeyword.find(k[:id])
+  def create_keyword(k)
+    keyword = TaskKeyword.new
     keyword.name = k[:name]
     keyword.density = k[:density]
     keyword
@@ -63,6 +55,35 @@ class TaskService
     submission.writer_id = writer.id
     submission.save!
     submission
+  end
+
+  def update_task(params, current_user)
+    task = Task.find(params[:id])
+    populate_task_from_params task, params
+    last_task_status = TaskStatus.where("task_id = ?", task.id).order(created_at: :desc).first
+    task.task_keywords.destroy_all
+    task_keywords =  params[:keywords].map(&method(:create_keyword))
+    if last_task_status.status != params[:current_status]
+      task_status = prepare_new_status params[:current_status], current_user
+      save_task task, task_status, task_keywords
+    else
+      save_task task, nil, task_keywords
+    end
+    task
+  end
+
+  def save_task(task, status, keywords)
+    Task.transaction do
+      task.save!
+      if status
+        status.task = task
+        status.save!
+      end
+      keywords.each do |kw|
+        kw.task = task
+        kw.save!
+      end
+    end
   end
 
 end
