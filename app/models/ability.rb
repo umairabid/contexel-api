@@ -15,6 +15,7 @@ class Ability
         can :read, Writer
       end
       can :manage, TaskSubmission
+      can :manage, TaskComment
     end
 
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_19_132324) do
+ActiveRecord::Schema.define(version: 2019_06_11_161730) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,16 @@ ActiveRecord::Schema.define(version: 2019_05_19_132324) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_managers_on_user_id", unique: true
+  end
+
+  create_table "task_comments", force: :cascade do |t|
+    t.text "comment"
+    t.bigint "task_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["task_id"], name: "index_task_comments_on_task_id"
+    t.index ["user_id"], name: "index_task_comments_on_user_id"
   end
 
   create_table "task_keywords", force: :cascade do |t|
@@ -133,6 +143,8 @@ ActiveRecord::Schema.define(version: 2019_05_19_132324) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "managers", "users"
+  add_foreign_key "task_comments", "tasks"
+  add_foreign_key "task_comments", "users"
   add_foreign_key "task_keywords", "tasks"
   add_foreign_key "task_statuses", "tasks"
   add_foreign_key "task_statuses", "users"

@@ -86,4 +86,14 @@ class TaskService
     end
   end
 
+  def save_comment(user, params)
+    task = Task.find(params[:task_id])
+    comment = params[:id] ? TaskComment.find(params[:id]) : TaskComment.new
+    comment.comment = params[:comment][:comment]
+    comment.task = task
+    comment.user = user
+    comment.save!
+    comment
+  end
+
 end

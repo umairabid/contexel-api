@@ -13,5 +13,6 @@ class Task < ApplicationRecord
   has_many :task_statuses
   has_many :task_keywords
   has_many :task_submissions
+  has_many :task_comments
 end
 
