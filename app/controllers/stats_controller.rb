@@ -7,12 +7,16 @@ class StatsController < ApplicationController
       :data => htmlStrippedContent
     })
 
+
 =begin
-    plagarism = HTTP.post('https://www.prepostseo.com/apischeckPlag', :form => {
+    plagarism_req_body = HTTP.post('https://www.prepostseo.com/apis/checkPlag', :form => {
         :key => "15c0bf29109451a8dab9d47226465b7c",
-        :data => params[:html]
+        :data => htmlStrippedContent
     }).body
+
+    plagarism = JSON.parse(plagarism_req_body)
 =end
+
     plagarism = JSON.parse File.read(Rails.root.join('public/plag-test.json'))
     render json: {
         mistakes: Hash.from_xml(mistakes.body),

@@ -9,6 +9,7 @@ class Ability
         can :manage, Writer
         can :manage, Team
         can :manage, Task
+        can :manage, PublishingPlatform
       end
       if  user.role == 'writer'
         can :read, Task
