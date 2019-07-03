@@ -37,4 +37,16 @@ class PublishingPlatformService
     platform
   end
 
+  def create_facebook(params, user)
+    platform = PublishingPlatform.new
+    platform.name = PublishingPlatform::FACEBOOK
+    platform.username = params[:username]
+    platform.token = params[:token]
+    platform.manager = user.profile
+    platform.password = 'gibbrish'
+    platform.url = 'facebook.com'
+    platform.save!
+    platform
+  end
+
 end
