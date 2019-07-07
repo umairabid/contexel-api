@@ -10,6 +10,7 @@ class User < ApplicationRecord
   has_one :writer
   has_one :manager
   has_one_attached :avatar
+  has_many :tasks
 
   def profile
     case role

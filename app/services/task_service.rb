@@ -5,7 +5,7 @@ class TaskService
     task.manager = current_user.manager
     populate_task_from_params task, params
     task_status = prepare_new_status params[:current_status], current_user
-    task_keywords =  params[:keywords].map(&method(:create_or_update_keyword))
+    task_keywords =  params[:keywords].map(&method(:create_keyword))
     save_task task, task_status, task_keywords
     task
   end

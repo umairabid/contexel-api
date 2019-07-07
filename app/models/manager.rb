@@ -5,6 +5,7 @@ class Manager < ApplicationRecord
   belongs_to :user
   has_many :tasks
   has_many :teams
+  has_many :writers
   has_many :publishing_platforms
 
 end

@@ -12,4 +12,5 @@ Rails.application.routes.draw do
   end
 
   post 'stats', to: 'stats#index'
+  get 'dashboard', to: 'dashboard#index'
 end
