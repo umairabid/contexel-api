@@ -14,6 +14,7 @@ class Task < ApplicationRecord
   has_many :task_keywords
   has_many :task_submissions
   has_many :task_comments
+  has_many :task_publications, through: :task_submissions
 
   def status
     sorted = task_statuses.sort { |a,b| b.created_at <=> a.created_at }

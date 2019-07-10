@@ -17,7 +17,7 @@ class Ability
       end
       can :manage, TaskSubmission
       can :manage, TaskComment
-
+      can :manage, TaskPublication
     end
 
 

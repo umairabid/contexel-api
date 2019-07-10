@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_27_183327) do
+ActiveRecord::Schema.define(version: 2019_07_09_004424) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,6 +75,16 @@ ActiveRecord::Schema.define(version: 2019_06_27_183327) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["task_id"], name: "index_task_keywords_on_task_id"
+  end
+
+  create_table "task_publications", force: :cascade do |t|
+    t.bigint "task_submission_id", null: false
+    t.bigint "publishing_platform_id", null: false
+    t.string "link", limit: 1000
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["publishing_platform_id"], name: "index_task_publications_on_publishing_platform_id"
+    t.index ["task_submission_id"], name: "index_task_publications_on_task_submission_id"
   end
 
   create_table "task_statuses", force: :cascade do |t|
@@ -160,6 +170,8 @@ ActiveRecord::Schema.define(version: 2019_06_27_183327) do
   add_foreign_key "task_comments", "tasks"
   add_foreign_key "task_comments", "users"
   add_foreign_key "task_keywords", "tasks"
+  add_foreign_key "task_publications", "publishing_platforms"
+  add_foreign_key "task_publications", "task_submissions"
   add_foreign_key "task_statuses", "tasks"
   add_foreign_key "task_statuses", "users"
   add_foreign_key "task_submissions", "tasks"

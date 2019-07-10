@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :tasks do
     resources :task_submissions, path: 'submissions'
     resources :task_comments, path: 'comments'
+    resources :task_publications, path: 'publications'
   end
 
   post 'stats', to: 'stats#index'
