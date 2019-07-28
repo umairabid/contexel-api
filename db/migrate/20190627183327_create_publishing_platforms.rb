@@ -4,7 +4,7 @@ class CreatePublishingPlatforms < ActiveRecord::Migration[5.2]
       t.integer :name, null: false, index: {unique: true}
       t.string :url, null: false
       t.string :username
-      t.string :password_digest
+      t.string :password
       t.string :token
       t.references :manager, {index: true, null: false, foreign_key: true}
       t.timestamps

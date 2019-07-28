@@ -1,6 +1,39 @@
 class PublishingPlatformService
 
+  def publish(params)
+    submission = TaskSubmission.find(params[:submission_id])
+    platform = PublishingPlatform.find(params[:platform_id])
+    raise "Submission does exist" unless submission
+    self.send("publish_with_#{platform.name}", submission, platform)
+  end
 
+  def publish_with_wordpress(submission, platform)
+    post_id = publish_wordpress(submission, platform)
+    save_publication(submission, platform, "#{platform.url}?p=#{post_id}")
+  end
+
+  def save_publication(submission, platform, url)
+    publication = TaskPublication.new
+    publication.publishing_platform = platform
+    publication.task_submission = submission
+    publication.link = url
+    publication.save!
+    publication
+  end
+
+  def publish_wordpress(submission, platform)
+    wp_client = connect_with_wordpress(platform.url, platform.username, platform.password)
+    wp_client.newPost( :blog_id => 0, # 0 unless using WP Multi-Site, then use the blog id
+      :content => {
+          :post_status  => "publish",
+          #:post_date    => Time.now,
+          :post_content => submission.submission,
+          :post_title   => submission.title,
+          #:post_name    => "/rubypress-is-the-best",
+          :post_author  => 1, # 1 if there is only the admin user, otherwise the user's id
+      }
+    )
+  end
 
   def create_platform(params, user)
     platform = PublishingPlatform.defined_enums["name"][params[:type]]

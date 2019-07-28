@@ -1,7 +1,5 @@
 class PublishingPlatform < ApplicationRecord
 
-  has_secure_password
-
   belongs_to :manager
 
   WORDPRESS = 1

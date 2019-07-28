@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_09_004424) do
+ActiveRecord::Schema.define(version: 2019_07_23_003005) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,7 +49,7 @@ ActiveRecord::Schema.define(version: 2019_07_09_004424) do
     t.integer "name", null: false
     t.string "url", null: false
     t.string "username"
-    t.string "password_digest"
+    t.string "password"
     t.string "token"
     t.bigint "manager_id", null: false
     t.datetime "created_at", null: false
@@ -84,6 +84,7 @@ ActiveRecord::Schema.define(version: 2019_07_09_004424) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["publishing_platform_id"], name: "index_task_publications_on_publishing_platform_id"
+    t.index ["task_submission_id", "publishing_platform_id"], name: "submission_platform_unique_index", unique: true
     t.index ["task_submission_id"], name: "index_task_publications_on_task_submission_id"
   end
 
@@ -98,6 +99,7 @@ ActiveRecord::Schema.define(version: 2019_07_09_004424) do
   end
 
   create_table "task_submissions", force: :cascade do |t|
+    t.string "title", null: false
     t.text "submission"
     t.boolean "is_submitted", default: false, null: false
     t.bigint "task_id", null: false
