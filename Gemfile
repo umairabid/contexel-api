@@ -44,7 +44,9 @@ gem 'cancancan', '3.0.0'
 
 gem 'http', '4.1.1'
 
-gem 'rubypress', '1.2.2'
+gem 'koala'
+
+gem 'rubypress'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

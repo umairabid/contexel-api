@@ -1,3 +1,5 @@
+require 'uri'
+
 class PublishingPlatformService
 
   def publish(params)
@@ -10,6 +12,13 @@ class PublishingPlatformService
   def publish_with_wordpress(submission, platform)
     post_id = publish_wordpress(submission, platform)
     save_publication(submission, platform, "#{platform.url}?p=#{post_id}")
+  end
+
+  def publish_with_facebook(submission, platform)
+    id = publish_facebook(submission, platform)
+    ids = id.split("_")
+    post_url = "https://www.facebook.com/permalink.php?story_fbid=#{ids[1]}&id=#{ids[0]}"
+    save_publication(submission, platform, post_url)
   end
 
   def save_publication(submission, platform, url)
@@ -26,13 +35,21 @@ class PublishingPlatformService
     wp_client.newPost( :blog_id => 0, # 0 unless using WP Multi-Site, then use the blog id
       :content => {
           :post_status  => "publish",
-          #:post_date    => Time.now,
           :post_content => submission.submission,
           :post_title   => submission.title,
-          #:post_name    => "/rubypress-is-the-best",
-          :post_author  => 1, # 1 if there is only the admin user, otherwise the user's id
+          :post_author  => 1
       }
     )
+  end
+
+  def publish_facebook(submission, platform)
+    user_graph = Koala::Facebook::API.new(platform.token)
+    pages = user_graph.get_connections('me', 'accounts')
+    page_token = pages.first['access_token']
+    page_graph = Koala::Facebook::API.new(page_token)
+    submission_content = ActionController::Base.helpers.strip_tags(submission.submission)
+    post = page_graph.put_wall_post(submission_content)
+    post["id"]
   end
 
   def create_platform(params, user)
@@ -42,12 +59,13 @@ class PublishingPlatformService
   end
 
   def connect_with_wordpress(url, username, password)
+    options = wp_url_options(url)
     begin
-      wp = Rubypress::Client.new(:host => url,
-                                 :port => "80",
-                                 :path => "/wordpress/xmlrpc.php",
+      wp = Rubypress::Client.new(:host => options[:host],
+                                 :port => options[:port],
+                                 :path => options[:path],
                                  :username => username,
-                                 :use_ssl => false,
+                                 :use_ssl => options[:use_ssl],
                                  :password => password)
       wp.getOptions
       return wp
@@ -80,6 +98,16 @@ class PublishingPlatformService
     platform.url = 'facebook.com'
     platform.save!
     platform
+  end
+
+  def wp_url_options(url)
+    uri = URI.parse url
+    {
+        host: uri.host,
+        path: uri.path ? "#{uri.path}/xmlrpc.php" : "/xmlrpc.php",
+        use_ssl: uri.scheme != "http",
+        port: uri.port
+    }
   end
 
 end
