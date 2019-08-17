@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_23_003005) do
+ActiveRecord::Schema.define(version: 2019_08_15_144507) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,17 @@ ActiveRecord::Schema.define(version: 2019_07_23_003005) do
     t.string "checksum", null: false
     t.datetime "created_at", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "invoices", force: :cascade do |t|
+    t.bigint "manager_id", null: false
+    t.bigint "writer_id", null: false
+    t.datetime "period_from", null: false
+    t.datetime "period_to", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["manager_id"], name: "index_invoices_on_manager_id"
+    t.index ["writer_id"], name: "index_invoices_on_writer_id"
   end
 
   create_table "managers", force: :cascade do |t|
@@ -167,6 +178,8 @@ ActiveRecord::Schema.define(version: 2019_07_23_003005) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "invoices", "managers"
+  add_foreign_key "invoices", "writers"
   add_foreign_key "managers", "users"
   add_foreign_key "publishing_platforms", "managers"
   add_foreign_key "task_comments", "tasks"

@@ -1,0 +1,116 @@
+<html>
+<head>
+  <title></title>
+<body>
+<div id="invoice">
+  <div class="header">
+    <table class="pure-table info-table">
+      <tr>
+        <td><strong>Name: </strong></td>
+        <td><%= view_params[:writer].user.name %></td>
+      </tr>
+      <tr>
+        <td><strong>Period From: </strong></td>
+        <td><%= view_params[:period_from].to_date.strftime("%Y %b, %d") %></td>
+      </tr>
+      <tr>
+        <td><strong>Period To: </strong></td>
+        <td><%= view_params[:period_to].to_date.strftime("%Y %b, %d") %></td>
+      </tr>
+    </table>
+  </div>
+  <div class="contents">
+    <table class="pure-table pure-table-bordered">
+      <tr>
+        <th style="width: 5%; min-width: 20px">Sr#</th>
+        <th style="width: 70%">Title</th>
+        <th style="width: 10%">Words</th>
+        <th style="width: 10%">Amount</th>
+      </tr>
+      <% view_params[:chargeable_tasks].each do |task| %>
+        <tr>
+          <td><%= task[:sr_no] %></td>
+          <td><%= task[:title] %></td>
+          <td><%= task[:words] %></td>
+          <td><%= task[:amount] %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+  <div class="footer">
+    <div class="footer-item">
+      <strong>Total: </strong>
+      <span><%= view_params[:sum] %></span>
+    </div>
+    <div class="footer-item">
+      <strong>Generated on: </strong>
+      <span><%= view_params[:date].strftime("%Y %b, %d") %></span>
+    </div>
+  </div>
+</div>
+</body>
+</head>
+<style>
+  .pure-table {
+    /* Remove spacing between table cells (from Normalize.css) */
+    border-collapse: collapse;
+    border-spacing: 0;
+    empty-cells: show;
+    border: 1px solid #cbcbcb;
+  }
+
+  .pure-table caption {
+    color: #000;
+    font: italic 85%/1 arial, sans-serif;
+    padding: 1em 0;
+    text-align: center;
+  }
+
+  .pure-table td,
+  .pure-table th {
+    border-left: 1px solid #cbcbcb; /*  inner column border */
+    border-width: 0 0 0 1px;
+    font-size: inherit;
+    margin: 0;
+    overflow: visible; /*to make ths where the title is really long work*/
+    padding: 0.5em 1em; /* cell padding */
+  }
+
+  /* Consider removing this next declaration block, as it causes problems when
+  there's a rowspan on the first cell. Case added to the tests. issue#432 */
+  .pure-table td:first-child,
+  .pure-table th:first-child {
+    border-left-width: 0;
+  }
+
+  .pure-table thead {
+    background-color: #e0e0e0;
+    color: #000;
+    text-align: left;
+    vertical-align: bottom;
+  }
+
+  /* BORDERED TABLES */
+  .pure-table-bordered td, .pure-table-bordered th {
+    border-bottom: 1px solid #cbcbcb;
+  }
+  .pure-table-bordered tbody > tr:last-child > td {
+    border-bottom-width: 0;
+  }
+
+
+  .contents table {
+    width: 100%;
+  }
+  .contents table th {
+    text-align: left;
+  }
+  .info-table, .info-table td, .info-table th {
+    border: 0;
+  }
+
+  .footer { margin-top: 20px; display: flex; justify-content: space-between; }
+
+
+</style>
+</html>

@@ -10,10 +10,12 @@ class Ability
         can :manage, Team
         can :manage, Task
         can :manage, PublishingPlatform
+        can :manage, Invoice
       end
       if  user.role == 'writer'
         can :read, Task
         can :read, Writer
+        can :read, Invoice
       end
       can :manage, TaskSubmission
       can :manage, TaskComment

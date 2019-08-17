@@ -4,6 +4,7 @@ class ApplicationController < ActionController::API
   rescue_from ::ActiveRecord::RecordNotUnique , with: :bad_request
   rescue_from ::NameError, with: :error_occurred
   rescue_from ::ActionController::RoutingError, with: :error_occurred
+  rescue_from ::RuntimeError, with: :error_occurred
   rescue_from ::CanCan::AccessDenied, with: :auth_error
 
   def current_user

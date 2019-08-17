@@ -7,5 +7,6 @@ class Manager < ApplicationRecord
   has_many :teams
   has_many :writers
   has_many :publishing_platforms
+  has_many :invoices
 
 end
