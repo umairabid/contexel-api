@@ -38,7 +38,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 gem 'active_model_serializers', '0.10.9'
 
-gem 'rack-cors', '1.0.3'
+gem 'rack-cors', '1.0.5'
 
 gem 'cancancan', '3.0.0'
 
